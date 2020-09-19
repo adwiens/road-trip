@@ -1,0 +1,32 @@
+mat-card-content {
+  display: grid;
+  grid-template-columns: 15px 1fr 20px 42px 42px;
+  grid-column-gap: 10px;
+  align-items: center;
+  overflow-x: auto;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
+
+mat-form-field {
+  min-width: 50px;
+}
+
+.expense-amount {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.person-name {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.add-expense-btn,
+.person-delete {
+  margin-top: -20px;
+}

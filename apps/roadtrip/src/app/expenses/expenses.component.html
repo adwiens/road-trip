@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title-group>
+    <mat-card-title>Expenses</mat-card-title>
+    <mat-card-subtitle>How much each person spent</mat-card-subtitle>
+  </mat-card-title-group>
+
+  <mat-card-content>
+    <ng-container *ngFor="let person of (people | async)?.controls; index as personIdx">
+      <mat-form-field class="person-name" appearance="outline">
+        <input matInput [formControl]="person.get('name')" placeholder="Person's Name">
+        <mat-error>Enter a name</mat-error>
+      </mat-form-field>
+      <button mat-icon-button (click)="addExpense(personIdx)" class="add-expense-btn">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deletePerson(personIdx)" class="person-delete">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <ng-container *ngIf="expenses | async as expensesForPerson">
+        <ng-container *ngFor="let expense of expensesForPerson[personIdx]?.controls; index as expenseIdx">
+          <span>&nbsp;</span>
+          <mat-form-field>
+            <input matInput [formControl]="expense.get('description')" placeholder="Expense Description">
+          </mat-form-field>
+          <mat-form-field class="expense-amount">
+            <input matInput [formControl]="expense.get('amount')" type="number">
+          </mat-form-field>
+          <button mat-icon-button (click)="deleteExpense(personIdx, expenseIdx)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="addPerson()">
+      ADD A PERSON
+    </button>
+    <button mat-icon-button (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

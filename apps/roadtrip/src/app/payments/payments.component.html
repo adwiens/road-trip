@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title-group>
+    <mat-card-title>Payments</mat-card-title>
+    <mat-card-subtitle>The minimum amount of money that must change hands</mat-card-subtitle>
+  </mat-card-title-group>
+
+  <mat-card-content class="results" *ngIf="(payments | async)?.length > 0; else okAsIs">
+    <ng-container *ngFor="let xfer of payments | async">
+      <span>{{ xfer.from | uppercase }}</span>
+      <span class="arrow">
+        <mat-icon>arrow_right_alt</mat-icon>
+      </span>
+      <span class="amount">{{ xfer.amount | currency }}</span>
+      <span>
+        <mat-icon>arrow_right_alt</mat-icon>
+      </span>
+      <span>{{ xfer.to | uppercase }}</span>
+    </ng-container>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="getPayments()">CALCULATE</button>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #okAsIs>
+  <mat-card-content *ngIf="(payments | async)?.length === 0">
+    Expenses are already balanced. Huzzah!
+  </mat-card-content>
+</ng-template>
